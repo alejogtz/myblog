@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Connect VSCode via ssh"
-date:   2024-04-21 00:00:00 +0000
+date:   2024-04-20 00:00:00 +0000
 categories: Utils
 ---
 
