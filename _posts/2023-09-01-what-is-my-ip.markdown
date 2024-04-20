@@ -8,8 +8,11 @@ categories: Utils
 ## Make a `curl` request to the following site:
 
 ```bash
-$ curl -s ifconfig.me
+% curl -sSL -4 ifconfig.me
 187.154.50.16
 ```
 
-Done!
+    > -4: ipv4
+    > -s (-s, --silent)
+    > -S (-S, --show-error)
+    > -L (-L, --location)
