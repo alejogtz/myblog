@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/myblog/assets/css/style.css">
+<title>Connect VSCode via ssh</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Connect VSCode via ssh | Alejo’s blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Connect VSCode via ssh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Connect VSCode with cloud9 via ssh" />
+<meta property="og:description" content="Connect VSCode with cloud9 via ssh" />
+<link rel="canonical" href="https://alejogtz.github.io/myblog/utils/2024/04/20/connect-vscode-via-ssh.html" />
+<meta property="og:url" content="https://alejogtz.github.io/myblog/utils/2024/04/20/connect-vscode-via-ssh.html" />
+<meta property="og:site_name" content="Alejo’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-04-20T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Connect VSCode via ssh" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-04-20T00:00:00+00:00","datePublished":"2024-04-20T00:00:00+00:00","description":"Connect VSCode with cloud9 via ssh","headline":"Connect VSCode via ssh","mainEntityOfPage":{"@type":"WebPage","@id":"https://alejogtz.github.io/myblog/utils/2024/04/20/connect-vscode-via-ssh.html"},"url":"https://alejogtz.github.io/myblog/utils/2024/04/20/connect-vscode-via-ssh.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/myblog/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/myblog/">
+        
+        <img src="/myblog/assets/profile.png" alt="Alejo Gutiérrez" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/myblog/">Alejo Gutiérrez</a>
+      </h2>
+      </div><p class="tagline">Developer. Chess</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/alejogtz" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/alejogtz" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/gzalejo" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/myblog/about">My Work</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/resume">Resume</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/about/me">Me</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2024</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/myblog/utils/2024/04/20/connect-vscode-via-ssh.html">
+    <h2 class="post-title">Connect VSCode via ssh</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Apr 20, 2024</div><ul class="post-categories"><li>Utils</li></ul></div>
+  <div class="post">
+    <h1 id="connect-vscode-with-cloud9-via-ssh">Connect VSCode with cloud9 via ssh</h1>
+
+<h3 id="cloud-9-cli">Cloud 9 cli</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">c9</span>
+<span class="nx">echo</span> <span class="dl">"</span><span class="s2">alias c=c9</span><span class="dl">"</span> <span class="o">&gt;&gt;</span> <span class="o">~</span><span class="sr">/.bashr</span><span class="err">c
+</span></code></pre></div></div>
+
+<h3 id="gitui">GitUI</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">curl</span> <span class="o">-</span><span class="nx">fsSL</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/extrawurst/gitui/releases/download/v0.22.1/gitui-linux-musl.tar.gz -o gitui.tar.gz</span>
+    <span class="nx">tar</span> <span class="nx">xvf</span> <span class="nx">gitui</span><span class="p">.</span><span class="nx">tar</span><span class="p">.</span><span class="nx">gz</span> <span class="o">&amp;&amp;</span> <span class="nx">rm</span> <span class="nx">gitui</span><span class="p">.</span><span class="nx">tar</span><span class="p">.</span><span class="nx">gz</span> <span class="o">&amp;&amp;</span> <span class="nx">mv</span> <span class="nx">gitui</span> <span class="nx">gui</span>
+
+<span class="nx">chmod</span> <span class="o">+</span><span class="nx">x</span> <span class="nx">gui</span>
+
+<span class="nx">sudo</span> <span class="nx">mv</span> <span class="nx">gui</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">local</span><span class="o">/</span><span class="nx">bin</span>
+</code></pre></div></div>
+
+<h3 id="ripgrep--fuzzy-finder">RipGrep &amp; Fuzzy finder</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">curl</span> <span class="o">-</span><span class="nx">LO</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb</span>
+<span class="nx">sudo</span> <span class="nx">dpkg</span> <span class="o">-</span><span class="nx">i</span> <span class="nx">ripgrep_13</span><span class="p">.</span><span class="mf">0.0</span><span class="nx">_amd64</span><span class="p">.</span><span class="nx">deb</span>
+
+<span class="k">export</span> <span class="nx">FZF_CTRL_T_OPTS</span><span class="o">=</span><span class="dl">'</span><span class="s1">-i</span><span class="dl">'</span>
+<span class="k">export</span> <span class="nx">FZF_DEFAULT_COMMAND</span><span class="o">=</span><span class="dl">'</span><span class="s1">rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"</span><span class="dl">'</span>                                                                
+<span class="k">export</span> <span class="nx">FZF_CTRL_T_COMMAND</span><span class="o">=</span><span class="dl">"</span><span class="s2">$FZF_DEFAULT_COMMAND</span><span class="dl">"</span>
+
+<span class="nx">git</span> <span class="nx">clone</span> <span class="o">--</span><span class="nx">depth</span> <span class="mi">1</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/junegunn/fzf.git ~/.fzf</span>
+<span class="o">~</span><span class="sr">/.fzf/i</span><span class="nx">nstall</span>
+
+<span class="nx">echo</span> <span class="dl">"</span><span class="s2">bind -x '</span><span class="se">\"\\</span><span class="s2">C-h</span><span class="se">\"</span><span class="s2">: fzf-file-widget'</span><span class="dl">"</span> <span class="o">&gt;&gt;</span> <span class="o">~</span><span class="sr">/.bash_profil</span><span class="err">e
+</span></code></pre></div></div>
+
+<h3 id="extras">Extras</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span> <span class="nx">File</span> <span class="o">~</span><span class="sr">/.bashr</span><span class="err">c
+</span>
+<span class="err">#</span> <span class="nx">git</span> <span class="nx">log</span> <span class="nx">show</span> <span class="kd">with</span> <span class="nx">fzf</span>
+<span class="err">#</span> <span class="nx">source</span><span class="p">:</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//gist.github.com/junegunn/f4fca918e937e6bf5bad</span>
+<span class="err">#</span>         <span class="nx">https</span><span class="p">:</span><span class="c1">//gist.github.com/junegunn/f4fca918e937e6bf5bad?permalink_comment_id=2981199#gistcomment-298119</span>
+<span class="nf">gli</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="nx">git</span> <span class="nx">log</span> <span class="o">-</span><span class="mi">15</span> <span class="o">--</span><span class="nx">first</span><span class="o">-</span><span class="nx">parent</span>  <span class="o">--</span><span class="nx">graph</span> <span class="o">--</span><span class="nx">color</span><span class="o">=</span><span class="nx">always</span> <span class="o">--</span><span class="nx">format</span><span class="o">=</span><span class="dl">"</span><span class="s2">%C(auto)%h%d %s %C(black)%C(bold)%cr</span><span class="dl">"</span> <span class="nx">$1</span> <span class="o">|</span> <span class="o">\</span>
+   <span class="nx">fzf</span> <span class="o">--</span><span class="nx">ansi</span> <span class="o">--</span><span class="nx">no</span><span class="o">-</span><span class="nx">sort</span> <span class="o">--</span><span class="nx">reverse</span> <span class="o">--</span><span class="nx">tiebreak</span><span class="o">=</span><span class="nx">index</span> <span class="o">--</span><span class="nx">preview</span> <span class="o">\</span>
+   <span class="dl">'</span><span class="s1">f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]</span><span class="se">\</span><span class="s1">{7</span><span class="se">\</span><span class="s1">}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}</span><span class="dl">'</span> <span class="o">\</span>
+   <span class="o">--</span><span class="nx">bind</span> <span class="dl">"</span><span class="s2">j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,right:execute:
+                (grep -o '[a-f0-9]</span><span class="se">\</span><span class="s2">{7</span><span class="se">\</span><span class="s2">}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') &lt;&lt; 'FZF-EOF'
+                {}
+FZF-EOF</span><span class="dl">"</span> <span class="o">--</span><span class="nx">preview</span><span class="o">-</span><span class="nb">window</span><span class="o">=</span><span class="nx">right</span><span class="p">:</span><span class="mi">60</span><span class="o">%</span>
+<span class="p">}</span>
+
+<span class="nf">gls</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="nx">git</span> <span class="nx">stash</span> <span class="nx">list</span> <span class="o">-</span><span class="nx">n</span> <span class="mi">5</span> <span class="o">--</span><span class="nx">format</span><span class="o">=</span><span class="dl">"</span><span class="s2">%gd %Cgreen%&lt;(60,trunc)%gs%Creset</span><span class="dl">"</span> <span class="o">|</span> <span class="o">\</span>
+   <span class="nx">fzf</span> <span class="o">--</span><span class="nx">ansi</span> <span class="o">--</span><span class="nx">no</span><span class="o">-</span><span class="nx">sort</span> <span class="o">--</span><span class="nx">reverse</span> <span class="o">--</span><span class="nx">tiebreak</span><span class="o">=</span><span class="nx">index</span> <span class="o">--</span><span class="nx">preview</span> <span class="o">\</span>
+   <span class="dl">'</span><span class="s1">f() { set -- $(echo -- "$@" | grep -o "stash@{[0-9]}"); [ $# -eq 0 ] || git -c color.ui=always stash show -p $1 ; }; f {}</span><span class="dl">'</span> <span class="o">\</span>
+   <span class="o">--</span><span class="nx">bind</span> <span class="dl">"</span><span class="s2">j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,right:execute:
+                (grep -o 'stash@{[0-9]}' | head -1 |
+                xargs -I % sh -c 'git -c color.ui=always stash show -p % | less -R') &lt;&lt; 'FZF-EOF'
+                {}
+FZF-EOF</span><span class="dl">"</span> <span class="o">--</span><span class="nx">preview</span><span class="o">-</span><span class="nb">window</span><span class="o">=</span><span class="nx">right</span><span class="p">:</span><span class="mi">60</span><span class="o">%</span>
+<span class="p">}</span>
+
+<span class="nx">source</span> <span class="o">~</span><span class="sr">/.bashr</span><span class="err">c
+</span></code></pre></div></div>
+
+<h3 id="vscode-with-ssh">VSCode with SSH</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">c</span> <span class="o">~</span><span class="sr">/.ssh/</span><span class="nx">authorized_keys</span>
+
+<span class="nx">curl</span> <span class="nx">ifconfig</span><span class="p">.</span><span class="nx">me</span>
+</code></pre></div></div>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Host</span> <span class="nx">AraFront</span>
+    <span class="nx">HostName</span> <span class="mf">54.193</span><span class="p">.</span><span class="mf">70.48</span>
+    <span class="nx">User</span> <span class="nx">ubuntu</span>
+    <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+
+<span class="nx">Host</span> <span class="nx">KudosApp</span>
+    <span class="nx">HostName</span> <span class="mf">54.200</span><span class="p">.</span><span class="mf">192.76</span>
+    <span class="nx">User</span> <span class="nx">ubuntu</span>
+    <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+   
+
+<span class="nx">Host</span> <span class="nx">alejo</span><span class="o">-</span><span class="nx">nexu</span><span class="o">-</span><span class="nx">back</span>
+ <span class="nx">HostName</span> <span class="mf">54.177</span><span class="p">.</span><span class="mf">56.155</span>
+ <span class="nx">User</span> <span class="nx">ubuntu</span>
+ <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+
+<span class="nx">Host</span> <span class="nx">alejo</span><span class="o">-</span><span class="nx">nexu</span><span class="o">-</span><span class="nx">front</span>
+ <span class="nx">HostName</span> <span class="mf">50.18</span><span class="p">.</span><span class="mf">232.71</span>
+ <span class="nx">User</span> <span class="nx">ubuntu</span>
+ <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+
+<span class="nx">Host</span> <span class="nx">KevFront</span>
+ <span class="nx">HostName</span> <span class="mf">13.57</span><span class="p">.</span><span class="mf">212.131</span>
+ <span class="nx">User</span> <span class="nx">ubuntu</span>
+ <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+</code></pre></div></div>
+
+<p><strong>SSH Remote Extension</strong></p>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/alejogtz" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/alejogtz" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/gzalejo" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/myblog/about">My Work</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/resume">Resume</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/about/me">Me</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2024</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/myblog/assets/js/darkmode.js"></script>
+  
+</body>
+
+</html>

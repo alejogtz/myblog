@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://alejogtz.github.io/myblog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alejogtz.github.io/myblog/" rel="alternate" type="text/html" /><updated>2024-05-15T20:41:49+00:00</updated><id>https://alejogtz.github.io/myblog/feed.xml</id><title type="html">Alejo’s blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Connect VSCode with Cloud9</title><link href="https://alejogtz.github.io/myblog/tutorials/2024/05/15/connect-vscode-cloud9.html" rel="alternate" type="text/html" title="Connect VSCode with Cloud9" /><published>2024-05-15T00:00:00+00:00</published><updated>2024-05-15T00:00:00+00:00</updated><id>https://alejogtz.github.io/myblog/tutorials/2024/05/15/connect-vscode-cloud9</id><content type="html" xml:base="https://alejogtz.github.io/myblog/tutorials/2024/05/15/connect-vscode-cloud9.html"><![CDATA[<h1 id="connect-vscode-with-cloud9-vía-ssh">Connect VSCode with Cloud9 vía SSH</h1>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />VSCode</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh">Remote - SSH</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit">Remote - SSH: Editing Configuration Files</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer">Remote Explorer</a></li>
+</ul>
+
+<h2 id="configuration">Configuration</h2>
+
+<h3 id="config-local-machine-">Config Local machine 💻</h3>
+
+<h4 id="create-ssh-key-pair">Create ssh key-pair</h4>
+
+<ul>
+  <li><strong>Install recommendes addons</strong></li>
+</ul>
+
+<p><img src="https://i.imgur.com/TgVd7XZ.png" alt="Imagen" /></p>
+
+<ul>
+  <li><strong>Generate ssh key-pair</strong></li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen
+<span class="nb">ls</span> <span class="nt">-al</span> ~/.ssh
+<span class="nb">eval</span> <span class="sb">`</span>ssh-agent<span class="sb">`</span>
+ssh-add ~/.ssh/id_rsa
+<span class="nb">cat</span> ~/.ssh/id_rsa.pub
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>In remote host follow steps to add public key to <code class="language-plaintext highlighter-rouge">~/.ssh/authorized_keys</code> file</strong></p>
+  </li>
+  <li>
+    <p><strong>Test remote ssh connection</strong></p>
+  </li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh ubuntu@54.177.56.155 <span class="nt">-i</span> ~/.ssh/id_rsa
+</code></pre></div></div>
+
+<h3 id="config-cloud9-or-any-other-remote-instance-️">Config Cloud9 or any other remote instance ☁️</h3>
+
+<ul>
+  <li>Edit <code class="language-plaintext highlighter-rouge">~/.ssh/authorized_keys</code>. For example with vim o cloud0 directly</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi ~/.ssh/authorized_keys
+# or
+c9 ~/.ssh/authorized_keys # to open in cloud9 directly
+</code></pre></div></div>
+
+<p><strong>From  local machine copy content from <code class="language-plaintext highlighter-rouge">~/.ssh/id_rsa</code></strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> ~/.ssh/id_rsa.pub
+</code></pre></div></div>
+
+<p>and add content at the end of <code class="language-plaintext highlighter-rouge">~/.ssh/authorized_keys</code> file</p>
+
+<p>it should look seems like this</p>
+
+<p><img src="https://i.imgur.com/gnTlrho.png" alt="" /></p>
+
+<h3 id="connect-vscode-with-cloud9-vía-ssh-1">Connect VSCode with cloud9 vía ssh</h3>
+
+<ul>
+  <li><strong>Edit <code class="language-plaintext highlighter-rouge">~\.ssh\config</code></strong></li>
+</ul>
+
+<p><img src="https://i.imgur.com/l75lBco.png" alt="" /></p>
+
+<p><img src="https://i.imgur.com/hLSe32v.png" alt="" /></p>
+
+<p><img src="https://i.imgur.com/HgJJjy6.png" alt="" /></p>
+
+<ul>
+  <li>Add new entry for remote host following next template</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host 
+    HostName 
+    User 
+    IdentityFile 
+</code></pre></div></div>
+
+<p>for example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host KudosApp
+    HostName 189.250.172.116
+    User ubuntu
+    IdentityFile ~/.ssh/id_rsa
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Finally, connect vscode directly with your remote instance</strong></li>
+</ul>
+
+<p>Refresh list</p>
+
+<p><img src="https://i.imgur.com/R70Cezi.png" alt="" /></p>
+
+<p><img src="https://i.imgur.com/Jzpo79x.png" alt="" /></p>
+
+<p><img src="https://i.imgur.com/Zj4INHT.png" alt="" /></p>
+
+<p><img src="https://i.imgur.com/C7ZqoUH.png" alt="" /></p>
+
+<p><img src="https://i.imgur.com/28lZOt9.png" alt="" /></p>
+
+<p><img src="https://i.imgur.com/qky7vu3.png" alt="" /></p>]]></content><author><name></name></author><category term="Tutorials" /><summary type="html"><![CDATA[Connect VSCode with Cloud9 vía SSH]]></summary></entry><entry><title type="html">Install neovim newest version</title><link href="https://alejogtz.github.io/myblog/utils/2024/04/21/install-newest-version-neovim.html" rel="alternate" type="text/html" title="Install neovim newest version" /><published>2024-04-21T00:00:00+00:00</published><updated>2024-04-21T00:00:00+00:00</updated><id>https://alejogtz.github.io/myblog/utils/2024/04/21/install-newest-version-neovim</id><content type="html" xml:base="https://alejogtz.github.io/myblog/utils/2024/04/21/install-newest-version-neovim.html"><![CDATA[<p><img src="https://i.imgur.com/w4ObsTo.png" alt="neovim" /></p>
+
+<h1 id="update-neovim">Update neovim</h1>
+
+<h2 id="via-apt">Via APT</h2>
+
+<p>Install software properties common</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install software-properties-common
+</code></pre></div></div>
+
+<p>Add oficial neovim apt repository</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo add-apt-repository ppa:neovim-ppa/unstable
+</code></pre></div></div>
+
+<blockquote>
+  <p>If you experiment any gpg timeout related trouble,
+try by adding gpg keyserver manually</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 7BB9C367
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Update <code class="language-plaintext highlighter-rouge">apt-get</code> to reflect changes</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get update
+</code></pre></div></div>
+
+<p>Finally install latest stable version of neovim</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install neovim
+</code></pre></div></div>
+
+<h2 id="via-snap">Via snap</h2>
+
+<p>Type next command</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo snap install nvim --classic
+</code></pre></div></div>]]></content><author><name></name></author><category term="Utils" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Connect VSCode via ssh</title><link href="https://alejogtz.github.io/myblog/utils/2024/04/20/connect-vscode-via-ssh.html" rel="alternate" type="text/html" title="Connect VSCode via ssh" /><published>2024-04-20T00:00:00+00:00</published><updated>2024-04-20T00:00:00+00:00</updated><id>https://alejogtz.github.io/myblog/utils/2024/04/20/connect-vscode-via-ssh</id><content type="html" xml:base="https://alejogtz.github.io/myblog/utils/2024/04/20/connect-vscode-via-ssh.html"><![CDATA[<h1 id="connect-vscode-with-cloud9-via-ssh">Connect VSCode with cloud9 via ssh</h1>
+
+<h3 id="cloud-9-cli">Cloud 9 cli</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">c9</span>
+<span class="nx">echo</span> <span class="dl">"</span><span class="s2">alias c=c9</span><span class="dl">"</span> <span class="o">&gt;&gt;</span> <span class="o">~</span><span class="sr">/.bashr</span><span class="err">c
+</span></code></pre></div></div>
+
+<h3 id="gitui">GitUI</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">curl</span> <span class="o">-</span><span class="nx">fsSL</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/extrawurst/gitui/releases/download/v0.22.1/gitui-linux-musl.tar.gz -o gitui.tar.gz</span>
+    <span class="nx">tar</span> <span class="nx">xvf</span> <span class="nx">gitui</span><span class="p">.</span><span class="nx">tar</span><span class="p">.</span><span class="nx">gz</span> <span class="o">&amp;&amp;</span> <span class="nx">rm</span> <span class="nx">gitui</span><span class="p">.</span><span class="nx">tar</span><span class="p">.</span><span class="nx">gz</span> <span class="o">&amp;&amp;</span> <span class="nx">mv</span> <span class="nx">gitui</span> <span class="nx">gui</span>
+
+<span class="nx">chmod</span> <span class="o">+</span><span class="nx">x</span> <span class="nx">gui</span>
+
+<span class="nx">sudo</span> <span class="nx">mv</span> <span class="nx">gui</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">local</span><span class="o">/</span><span class="nx">bin</span>
+</code></pre></div></div>
+
+<h3 id="ripgrep--fuzzy-finder">RipGrep &amp; Fuzzy finder</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">curl</span> <span class="o">-</span><span class="nx">LO</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb</span>
+<span class="nx">sudo</span> <span class="nx">dpkg</span> <span class="o">-</span><span class="nx">i</span> <span class="nx">ripgrep_13</span><span class="p">.</span><span class="mf">0.0</span><span class="nx">_amd64</span><span class="p">.</span><span class="nx">deb</span>
+
+<span class="k">export</span> <span class="nx">FZF_CTRL_T_OPTS</span><span class="o">=</span><span class="dl">'</span><span class="s1">-i</span><span class="dl">'</span>
+<span class="k">export</span> <span class="nx">FZF_DEFAULT_COMMAND</span><span class="o">=</span><span class="dl">'</span><span class="s1">rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"</span><span class="dl">'</span>                                                                
+<span class="k">export</span> <span class="nx">FZF_CTRL_T_COMMAND</span><span class="o">=</span><span class="dl">"</span><span class="s2">$FZF_DEFAULT_COMMAND</span><span class="dl">"</span>
+
+<span class="nx">git</span> <span class="nx">clone</span> <span class="o">--</span><span class="nx">depth</span> <span class="mi">1</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/junegunn/fzf.git ~/.fzf</span>
+<span class="o">~</span><span class="sr">/.fzf/i</span><span class="nx">nstall</span>
+
+<span class="nx">echo</span> <span class="dl">"</span><span class="s2">bind -x '</span><span class="se">\"\\</span><span class="s2">C-h</span><span class="se">\"</span><span class="s2">: fzf-file-widget'</span><span class="dl">"</span> <span class="o">&gt;&gt;</span> <span class="o">~</span><span class="sr">/.bash_profil</span><span class="err">e
+</span></code></pre></div></div>
+
+<h3 id="extras">Extras</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span> <span class="nx">File</span> <span class="o">~</span><span class="sr">/.bashr</span><span class="err">c
+</span>
+<span class="err">#</span> <span class="nx">git</span> <span class="nx">log</span> <span class="nx">show</span> <span class="kd">with</span> <span class="nx">fzf</span>
+<span class="err">#</span> <span class="nx">source</span><span class="p">:</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//gist.github.com/junegunn/f4fca918e937e6bf5bad</span>
+<span class="err">#</span>         <span class="nx">https</span><span class="p">:</span><span class="c1">//gist.github.com/junegunn/f4fca918e937e6bf5bad?permalink_comment_id=2981199#gistcomment-298119</span>
+<span class="nf">gli</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="nx">git</span> <span class="nx">log</span> <span class="o">-</span><span class="mi">15</span> <span class="o">--</span><span class="nx">first</span><span class="o">-</span><span class="nx">parent</span>  <span class="o">--</span><span class="nx">graph</span> <span class="o">--</span><span class="nx">color</span><span class="o">=</span><span class="nx">always</span> <span class="o">--</span><span class="nx">format</span><span class="o">=</span><span class="dl">"</span><span class="s2">%C(auto)%h%d %s %C(black)%C(bold)%cr</span><span class="dl">"</span> <span class="nx">$1</span> <span class="o">|</span> <span class="o">\</span>
+   <span class="nx">fzf</span> <span class="o">--</span><span class="nx">ansi</span> <span class="o">--</span><span class="nx">no</span><span class="o">-</span><span class="nx">sort</span> <span class="o">--</span><span class="nx">reverse</span> <span class="o">--</span><span class="nx">tiebreak</span><span class="o">=</span><span class="nx">index</span> <span class="o">--</span><span class="nx">preview</span> <span class="o">\</span>
+   <span class="dl">'</span><span class="s1">f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]</span><span class="se">\</span><span class="s1">{7</span><span class="se">\</span><span class="s1">}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}</span><span class="dl">'</span> <span class="o">\</span>
+   <span class="o">--</span><span class="nx">bind</span> <span class="dl">"</span><span class="s2">j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,right:execute:
+                (grep -o '[a-f0-9]</span><span class="se">\</span><span class="s2">{7</span><span class="se">\</span><span class="s2">}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') &lt;&lt; 'FZF-EOF'
+                {}
+FZF-EOF</span><span class="dl">"</span> <span class="o">--</span><span class="nx">preview</span><span class="o">-</span><span class="nb">window</span><span class="o">=</span><span class="nx">right</span><span class="p">:</span><span class="mi">60</span><span class="o">%</span>
+<span class="p">}</span>
+
+<span class="nf">gls</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="nx">git</span> <span class="nx">stash</span> <span class="nx">list</span> <span class="o">-</span><span class="nx">n</span> <span class="mi">5</span> <span class="o">--</span><span class="nx">format</span><span class="o">=</span><span class="dl">"</span><span class="s2">%gd %Cgreen%&lt;(60,trunc)%gs%Creset</span><span class="dl">"</span> <span class="o">|</span> <span class="o">\</span>
+   <span class="nx">fzf</span> <span class="o">--</span><span class="nx">ansi</span> <span class="o">--</span><span class="nx">no</span><span class="o">-</span><span class="nx">sort</span> <span class="o">--</span><span class="nx">reverse</span> <span class="o">--</span><span class="nx">tiebreak</span><span class="o">=</span><span class="nx">index</span> <span class="o">--</span><span class="nx">preview</span> <span class="o">\</span>
+   <span class="dl">'</span><span class="s1">f() { set -- $(echo -- "$@" | grep -o "stash@{[0-9]}"); [ $# -eq 0 ] || git -c color.ui=always stash show -p $1 ; }; f {}</span><span class="dl">'</span> <span class="o">\</span>
+   <span class="o">--</span><span class="nx">bind</span> <span class="dl">"</span><span class="s2">j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,right:execute:
+                (grep -o 'stash@{[0-9]}' | head -1 |
+                xargs -I % sh -c 'git -c color.ui=always stash show -p % | less -R') &lt;&lt; 'FZF-EOF'
+                {}
+FZF-EOF</span><span class="dl">"</span> <span class="o">--</span><span class="nx">preview</span><span class="o">-</span><span class="nb">window</span><span class="o">=</span><span class="nx">right</span><span class="p">:</span><span class="mi">60</span><span class="o">%</span>
+<span class="p">}</span>
+
+<span class="nx">source</span> <span class="o">~</span><span class="sr">/.bashr</span><span class="err">c
+</span></code></pre></div></div>
+
+<h3 id="vscode-with-ssh">VSCode with SSH</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">c</span> <span class="o">~</span><span class="sr">/.ssh/</span><span class="nx">authorized_keys</span>
+
+<span class="nx">curl</span> <span class="nx">ifconfig</span><span class="p">.</span><span class="nx">me</span>
+</code></pre></div></div>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Host</span> <span class="nx">AraFront</span>
+    <span class="nx">HostName</span> <span class="mf">54.193</span><span class="p">.</span><span class="mf">70.48</span>
+    <span class="nx">User</span> <span class="nx">ubuntu</span>
+    <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+
+<span class="nx">Host</span> <span class="nx">KudosApp</span>
+    <span class="nx">HostName</span> <span class="mf">54.200</span><span class="p">.</span><span class="mf">192.76</span>
+    <span class="nx">User</span> <span class="nx">ubuntu</span>
+    <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+   
+
+<span class="nx">Host</span> <span class="nx">alejo</span><span class="o">-</span><span class="nx">nexu</span><span class="o">-</span><span class="nx">back</span>
+ <span class="nx">HostName</span> <span class="mf">54.177</span><span class="p">.</span><span class="mf">56.155</span>
+ <span class="nx">User</span> <span class="nx">ubuntu</span>
+ <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+
+<span class="nx">Host</span> <span class="nx">alejo</span><span class="o">-</span><span class="nx">nexu</span><span class="o">-</span><span class="nx">front</span>
+ <span class="nx">HostName</span> <span class="mf">50.18</span><span class="p">.</span><span class="mf">232.71</span>
+ <span class="nx">User</span> <span class="nx">ubuntu</span>
+ <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+
+<span class="nx">Host</span> <span class="nx">KevFront</span>
+ <span class="nx">HostName</span> <span class="mf">13.57</span><span class="p">.</span><span class="mf">212.131</span>
+ <span class="nx">User</span> <span class="nx">ubuntu</span>
+ <span class="nx">IdentityFile</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="nx">d_rsa</span>
+</code></pre></div></div>
+
+<p><strong>SSH Remote Extension</strong></p>]]></content><author><name></name></author><category term="Utils" /><summary type="html"><![CDATA[Connect VSCode with cloud9 via ssh]]></summary></entry><entry><title type="html">Install Bare repository</title><link href="https://alejogtz.github.io/myblog/utils/2024/04/20/install-bare-repository.html" rel="alternate" type="text/html" title="Install Bare repository" /><published>2024-04-20T00:00:00+00:00</published><updated>2024-04-20T00:00:00+00:00</updated><id>https://alejogtz.github.io/myblog/utils/2024/04/20/install-bare-repository</id><content type="html" xml:base="https://alejogtz.github.io/myblog/utils/2024/04/20/install-bare-repository.html"><![CDATA[<h1 id="manage-dotfiles-with-a-git-bare-repository">Manage dotfiles with a git bare repository</h1>
+
+<p>Bare repositories allow you to manage dotfiles with git from diference sources in your computer and sync with other machines.</p>
+
+<p>We have two scenarios, first and it’s neccessary do one time is create the bare repository. Once you have your github repo, you only need clone your repo in another machine</p>
+
+<h1 id="first-scenario-create-bare-repository">First scenario. Create bare repository</h1>
+
+<p>Create bare repository in <code class="language-plaintext highlighter-rouge">$HOME</code> folder</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% git init <span class="nt">--bare</span> <span class="nv">$HOME</span>/.cfg
+</code></pre></div></div>
+
+<p>In order to manipulate this repository we create an alias to point this repo.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span><span class="nv">config</span><span class="o">=</span><span class="s1">'/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'</span>
+</code></pre></div></div>
+
+<p>Now you can execute this command to ignore all files which no are tracked by our bare repository</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config config <span class="nt">--local</span> status.showUntrackedFiles no
+</code></pre></div></div>
+
+<p>You can save this alias in you bash config to permanently have access</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># File: ~/.bashrc 
+#
+# Add this line to your .bashrc config file
+echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" &gt;&gt; $HOME/.bashrc
+echo "alias conf='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" &gt;&gt; $HOME/.bashrc
+</code></pre></div></div>
+
+<p>Once you have created your repo
+Now you can add config files to your bare repository</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">cd</span> <span class="nv">$HOME</span>/
+
+% config status
+% config add .bashrc
+% config commit <span class="nt">-m</span> <span class="s2">"Add bashrc"</span>
+% config add .bash_aliases
+% config commit <span class="nt">-m</span> <span class="s2">"Add bashrc"</span>
+% config add .gitconfig
+% config commit <span class="nt">-m</span> <span class="s2">"Add bashrc"</span>
+
+% config add .vimrc
+% config commit <span class="nt">-m</span> <span class="s2">"Add vimrc"</span>
+</code></pre></div></div>
+
+<h3 id="publish-to-github-remote-repository">Publish to github remote repository</h3>
+
+<p>Create openssl secret key-pair</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% ssh-keygen
+% ls -al ~/.ssh
+% eval `ssh-agent`
+% cat ~/.ssh/id_rsa.pub
+</code></pre></div></div>
+
+<p>Copy content displayed and add to your <a href="https://github.com/settings/keys">github keys</a></p>
+
+<h3 id="add-config-remote">Add config remote</h3>
+
+<p>Create new repository and add remote at your remotes list</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config remote add &lt;name&gt; &lt;url&gt;
+config remote add origin git@github.com:alejogtz/configs.git
+</code></pre></div></div>
+
+<p>Now you can publish and save your dotfiles</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% config push origin master
+</code></pre></div></div>
+
+<p>Bare repositories allow you to save dotfiles and manage with github</p>
+
+<h2 id="clone-bare-repository-into-another-instance">Clone bare repository into another instance</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% git <span class="nb">rm</span> <span class="nt">--cached</span> &lt;file&gt;
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="nt">--bare</span> git@github.com:alejogtz/configs.git ~/.cfg
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias conf='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+</code></pre></div></div>
+
+<p>conf checkout</p>
+
+<p>conf config –local status.showUntrackedFiles no</p>]]></content><author><name></name></author><category term="Utils" /><summary type="html"><![CDATA[Manage dotfiles with a git bare repository]]></summary></entry><entry><title type="html">Install code-server</title><link href="https://alejogtz.github.io/myblog/utils/2024/04/20/install-code-server.html" rel="alternate" type="text/html" title="Install code-server" /><published>2024-04-20T00:00:00+00:00</published><updated>2024-04-20T00:00:00+00:00</updated><id>https://alejogtz.github.io/myblog/utils/2024/04/20/install-code-server</id><content type="html" xml:base="https://alejogtz.github.io/myblog/utils/2024/04/20/install-code-server.html"><![CDATA[<h1 id="code-server">Code Server</h1>
+
+<p>One alternative to connect vscode with remote linux instance via ssh is install vscode standalone web server</p>
+
+<h1 id="installing-code-server">Installing code-server</h1>
+
+<h3 id="1-install-from-source">1. Install from source</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fsSL</span> https://code-server.dev/install.sh | sh
+</code></pre></div></div>
+
+<h3 id="2-type-code-server-to-generate-configuration-file-and-stop-it-with-ctrl--c">2. Type <code class="language-plaintext highlighter-rouge">code-server</code> to generate configuration file and stop it with <code class="language-plaintext highlighter-rouge">Ctrl + c</code></h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code-server
+</code></pre></div></div>
+
+<ul>
+  <li>When you type <code class="language-plaintext highlighter-rouge">code-server</code>, <code class="language-plaintext highlighter-rouge">~/.config/code-server/config.yaml</code> file will be generated atuomatically</li>
+</ul>
+
+<h3 id="3-replace-local-ip-by-public-ip">3. Replace local ip by public ip</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'s/bind-addr: 127.0.0.1:8080/bind-addr: 0.0.0.0:8085/g'</span> <span class="nv">$HOME</span>/.config/code-server/config.yaml
+</code></pre></div></div>
+
+<h3 id="4-run-code-server-and-code-it">4. Run code-server and code it</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code-server <span class="nt">--port</span> 8085
+</code></pre></div></div>
+
+<p><strong>Navigate to public IP and open in port 8085</strong></p>
+
+<blockquote>
+  <p>You can get your current IP with next command: <code class="language-plaintext highlighter-rouge">curl -sSL ifconfig.me</code></p>
+
+</blockquote>
+
+<blockquote>
+  <p>open chrome on: e.g. http://<your_ip>:8085</your_ip></p>
+
+</blockquote>
+
+<h3 id="5-show-password-to-login">5. show password to login</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="nv">$HOME</span>/.config/code-server/config.yaml
+</code></pre></div></div>
+
+<h2 id="ssl-configuration">SSL Configuration</h2>
+
+<h3 id="generate-self-signed-certificate">Generate self-signed certificate</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl req <span class="nt">-newkey</span> rsa:2048 <span class="nt">-nodes</span> <span class="nt">-keyout</span> <span class="nv">$HOME</span>/.config/code-server/key.pem <span class="se">\</span>
+	<span class="nt">-x509</span> <span class="nt">-days</span> 365 <span class="se">\</span>
+	<span class="nt">-subj</span> <span class="s2">"/C=MX/ST=Oaxaca/L=Oaxaca/O=Auditore IT/OU=Inc/CN=auditore.domain.com"</span> <span class="se">\</span>
+	<span class="nt">-out</span> <span class="nv">$HOME</span>/.config/code-server/cert.pem
+
+</code></pre></div></div>
+
+<h3 id="remove-useless-cert-lines">Remove useless cert lines</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'/^cert:/d'</span> ~/.config/code-server/config.yaml
+<span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'/^cert-key:/d'</span> ~/.config/code-server/config.yaml
+
+</code></pre></div></div>
+
+<h3 id="update-cert-lines-with-own-self-signed-cert">Update cert-lines with own self-signed cert</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"cert: </span><span class="nv">$HOME</span><span class="s2">/.config/code-server/cert.pem"</span> <span class="o">&gt;&gt;</span> ~/.config/code-server/config.yaml
+<span class="nb">echo</span> <span class="s2">"cert-key: </span><span class="nv">$HOME</span><span class="s2">/.config/code-server/key.pem"</span> <span class="o">&gt;&gt;</span> ~/.config/code-server/config.yaml
+</code></pre></div></div>
+
+<h3 id="run-code-server-and-navigate-to-start-coding">Run code-server and navigate to start coding</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code-server <span class="nt">--port</span> 8085 <span class="c">#### With SSL</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="Utils" /><summary type="html"><![CDATA[Code Server]]></summary></entry><entry><title type="html">Installing Git UI</title><link href="https://alejogtz.github.io/myblog/utils/2024/04/20/install-git-ui.html" rel="alternate" type="text/html" title="Installing Git UI" /><published>2024-04-20T00:00:00+00:00</published><updated>2024-04-20T00:00:00+00:00</updated><id>https://alejogtz.github.io/myblog/utils/2024/04/20/install-git-ui</id><content type="html" xml:base="https://alejogtz.github.io/myblog/utils/2024/04/20/install-git-ui.html"><![CDATA[<h1 id="installing-git-ui">Installing Git UI</h1>
+
+<h1 id="git-ui">Git-UI</h1>
+
+<p>Descripción</p>
+
+<p><a href="https://github.com/extrawurst/gitui">Git UI</a> (o  gui para los cuates) es una simple terminal UI para comandos git.</p>
+
+<p>Funcionalidades:</p>
+
+<ul>
+  <li>Te permite agregar cambios del código por <em>chunks</em> de codigo al <em>staging area</em></li>
+  <li>Te permite hacer reset de cambios por chunks o por archivo</li>
+  <li>Navegación con flechas y <em>keymap</em> siempre visibles desde la terminal</li>
+</ul>
+
+<h2 id="capturas">Capturas</h2>
+
+<p>!https://github.com/extrawurst/gitui/raw/master/demo.gif</p>
+
+<h2 id="quieres-instalarlo">¿Quieres instalarlo?</h2>
+
+<p><strong>Requerimientos</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">curl</code>, <code class="language-plaintext highlighter-rouge">tar</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sudo user</code></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fsSL</span> https://github.com/extrawurst/gitui/releases/download/v0.22.1/gitui-linux-musl.tar.gz <span class="se">\</span>
+  <span class="nt">-o</span> gitui.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">tar </span>xvf gitui.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">rm </span>gitui.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">mv </span>gitui gui
+
+<span class="nb">chmod</span> +x gui
+
+<span class="nb">sudo mv </span>gui /usr/local/bin
+</code></pre></div></div>
+
+<p>Pruébalo!
+Escribe <code class="language-plaintext highlighter-rouge">gui</code> en la terminal</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gui
+</code></pre></div></div>]]></content><author><name></name></author><category term="Utils" /><summary type="html"><![CDATA[Installing Git UI]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="https://alejogtz.github.io/myblog/jekyll/update/2023/09/01/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2023-09-01T16:16:25+00:00</published><updated>2023-09-01T16:16:25+00:00</updated><id>https://alejogtz.github.io/myblog/jekyll/update/2023/09/01/welcome-to-jekyll</id><content type="html" xml:base="https://alejogtz.github.io/myblog/jekyll/update/2023/09/01/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+
+<p>Jekyll requires blog post files to be named according to the following format:</p>
+
+<p><code class="language-plaintext highlighter-rouge">YEAR-MONTH-DAY-title.MARKUP</code></p>
+
+<p>Where <code class="language-plaintext highlighter-rouge">YEAR</code> is a four-digit number, <code class="language-plaintext highlighter-rouge">MONTH</code> and <code class="language-plaintext highlighter-rouge">DAY</code> are both two-digit numbers, and <code class="language-plaintext highlighter-rouge">MARKUP</code> is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+
+<p>Jekyll also offers powerful support for code snippets:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
+<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+
+<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.]]></summary></entry><entry><title type="html">Whats my ip!</title><link href="https://alejogtz.github.io/myblog/utils/2023/09/01/what-is-my-ip.html" rel="alternate" type="text/html" title="Whats my ip!" /><published>2023-09-01T16:16:25+00:00</published><updated>2023-09-01T16:16:25+00:00</updated><id>https://alejogtz.github.io/myblog/utils/2023/09/01/what-is-my-ip</id><content type="html" xml:base="https://alejogtz.github.io/myblog/utils/2023/09/01/what-is-my-ip.html"><![CDATA[<h2 id="make-a-curl-request-to-the-following-site">Make a <code class="language-plaintext highlighter-rouge">curl</code> request to the following site:</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% curl <span class="nt">-sSL</span> <span class="nt">-4</span> ifconfig.me
+187.154.50.16
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; -4: ipv4
+&gt; -s (-s, --silent)
+&gt; -S (-S, --show-error)
+&gt; -L (-L, --location)
+</code></pre></div></div>]]></content><author><name></name></author><category term="Utils" /><summary type="html"><![CDATA[Make a curl request to the following site:]]></summary></entry></feed>

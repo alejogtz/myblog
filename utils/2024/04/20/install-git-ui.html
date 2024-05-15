@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/myblog/assets/css/style.css">
+<title>Installing Git UI</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Installing Git UI | Alejo’s blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Installing Git UI" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Installing Git UI" />
+<meta property="og:description" content="Installing Git UI" />
+<link rel="canonical" href="https://alejogtz.github.io/myblog/utils/2024/04/20/install-git-ui.html" />
+<meta property="og:url" content="https://alejogtz.github.io/myblog/utils/2024/04/20/install-git-ui.html" />
+<meta property="og:site_name" content="Alejo’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-04-20T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Installing Git UI" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-04-20T00:00:00+00:00","datePublished":"2024-04-20T00:00:00+00:00","description":"Installing Git UI","headline":"Installing Git UI","mainEntityOfPage":{"@type":"WebPage","@id":"https://alejogtz.github.io/myblog/utils/2024/04/20/install-git-ui.html"},"url":"https://alejogtz.github.io/myblog/utils/2024/04/20/install-git-ui.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/myblog/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/myblog/">
+        
+        <img src="/myblog/assets/profile.png" alt="Alejo Gutiérrez" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/myblog/">Alejo Gutiérrez</a>
+      </h2>
+      </div><p class="tagline">Developer. Chess</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/alejogtz" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/alejogtz" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/gzalejo" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/myblog/about">My Work</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/resume">Resume</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/about/me">Me</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2024</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/myblog/utils/2024/04/20/install-git-ui.html">
+    <h2 class="post-title">Installing Git UI</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Apr 20, 2024</div><ul class="post-categories"><li>Utils</li></ul></div>
+  <div class="post">
+    <h1 id="installing-git-ui">Installing Git UI</h1>
+
+<h1 id="git-ui">Git-UI</h1>
+
+<p>Descripción</p>
+
+<p><a href="https://github.com/extrawurst/gitui">Git UI</a> (o  gui para los cuates) es una simple terminal UI para comandos git.</p>
+
+<p>Funcionalidades:</p>
+
+<ul>
+  <li>Te permite agregar cambios del código por <em>chunks</em> de codigo al <em>staging area</em></li>
+  <li>Te permite hacer reset de cambios por chunks o por archivo</li>
+  <li>Navegación con flechas y <em>keymap</em> siempre visibles desde la terminal</li>
+</ul>
+
+<h2 id="capturas">Capturas</h2>
+
+<p>!https://github.com/extrawurst/gitui/raw/master/demo.gif</p>
+
+<h2 id="quieres-instalarlo">¿Quieres instalarlo?</h2>
+
+<p><strong>Requerimientos</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">curl</code>, <code class="language-plaintext highlighter-rouge">tar</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sudo user</code></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fsSL</span> https://github.com/extrawurst/gitui/releases/download/v0.22.1/gitui-linux-musl.tar.gz <span class="se">\</span>
+  <span class="nt">-o</span> gitui.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">tar </span>xvf gitui.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">rm </span>gitui.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">mv </span>gitui gui
+
+<span class="nb">chmod</span> +x gui
+
+<span class="nb">sudo mv </span>gui /usr/local/bin
+</code></pre></div></div>
+
+<p>Pruébalo!
+Escribe <code class="language-plaintext highlighter-rouge">gui</code> en la terminal</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gui
+</code></pre></div></div>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/alejogtz" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/alejogtz" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/gzalejo" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/myblog/about">My Work</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/resume">Resume</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/about/me">Me</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2024</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/myblog/assets/js/darkmode.js"></script>
+  
+</body>
+
+</html>

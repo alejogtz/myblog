@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/myblog/assets/css/style.css">
+<title>Install Bare repository</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Install Bare repository | Alejo’s blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Install Bare repository" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Manage dotfiles with a git bare repository" />
+<meta property="og:description" content="Manage dotfiles with a git bare repository" />
+<link rel="canonical" href="https://alejogtz.github.io/myblog/utils/2024/04/20/install-bare-repository.html" />
+<meta property="og:url" content="https://alejogtz.github.io/myblog/utils/2024/04/20/install-bare-repository.html" />
+<meta property="og:site_name" content="Alejo’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-04-20T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Install Bare repository" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-04-20T00:00:00+00:00","datePublished":"2024-04-20T00:00:00+00:00","description":"Manage dotfiles with a git bare repository","headline":"Install Bare repository","mainEntityOfPage":{"@type":"WebPage","@id":"https://alejogtz.github.io/myblog/utils/2024/04/20/install-bare-repository.html"},"url":"https://alejogtz.github.io/myblog/utils/2024/04/20/install-bare-repository.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/myblog/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/myblog/">
+        
+        <img src="/myblog/assets/profile.png" alt="Alejo Gutiérrez" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/myblog/">Alejo Gutiérrez</a>
+      </h2>
+      </div><p class="tagline">Developer. Chess</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/alejogtz" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/alejogtz" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/gzalejo" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/myblog/about">My Work</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/resume">Resume</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/about/me">Me</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2024</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/myblog/utils/2024/04/20/install-bare-repository.html">
+    <h2 class="post-title">Install Bare repository</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Apr 20, 2024</div><ul class="post-categories"><li>Utils</li></ul></div>
+  <div class="post">
+    <h1 id="manage-dotfiles-with-a-git-bare-repository">Manage dotfiles with a git bare repository</h1>
+
+<p>Bare repositories allow you to manage dotfiles with git from diference sources in your computer and sync with other machines.</p>
+
+<p>We have two scenarios, first and it’s neccessary do one time is create the bare repository. Once you have your github repo, you only need clone your repo in another machine</p>
+
+<h1 id="first-scenario-create-bare-repository">First scenario. Create bare repository</h1>
+
+<p>Create bare repository in <code class="language-plaintext highlighter-rouge">$HOME</code> folder</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% git init <span class="nt">--bare</span> <span class="nv">$HOME</span>/.cfg
+</code></pre></div></div>
+
+<p>In order to manipulate this repository we create an alias to point this repo.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span><span class="nv">config</span><span class="o">=</span><span class="s1">'/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'</span>
+</code></pre></div></div>
+
+<p>Now you can execute this command to ignore all files which no are tracked by our bare repository</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config config <span class="nt">--local</span> status.showUntrackedFiles no
+</code></pre></div></div>
+
+<p>You can save this alias in you bash config to permanently have access</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># File: ~/.bashrc 
+#
+# Add this line to your .bashrc config file
+echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" &gt;&gt; $HOME/.bashrc
+echo "alias conf='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" &gt;&gt; $HOME/.bashrc
+</code></pre></div></div>
+
+<p>Once you have created your repo
+Now you can add config files to your bare repository</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">cd</span> <span class="nv">$HOME</span>/
+
+% config status
+% config add .bashrc
+% config commit <span class="nt">-m</span> <span class="s2">"Add bashrc"</span>
+% config add .bash_aliases
+% config commit <span class="nt">-m</span> <span class="s2">"Add bashrc"</span>
+% config add .gitconfig
+% config commit <span class="nt">-m</span> <span class="s2">"Add bashrc"</span>
+
+% config add .vimrc
+% config commit <span class="nt">-m</span> <span class="s2">"Add vimrc"</span>
+</code></pre></div></div>
+
+<h3 id="publish-to-github-remote-repository">Publish to github remote repository</h3>
+
+<p>Create openssl secret key-pair</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% ssh-keygen
+% ls -al ~/.ssh
+% eval `ssh-agent`
+% cat ~/.ssh/id_rsa.pub
+</code></pre></div></div>
+
+<p>Copy content displayed and add to your <a href="https://github.com/settings/keys">github keys</a></p>
+
+<h3 id="add-config-remote">Add config remote</h3>
+
+<p>Create new repository and add remote at your remotes list</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config remote add &lt;name&gt; &lt;url&gt;
+config remote add origin git@github.com:alejogtz/configs.git
+</code></pre></div></div>
+
+<p>Now you can publish and save your dotfiles</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% config push origin master
+</code></pre></div></div>
+
+<p>Bare repositories allow you to save dotfiles and manage with github</p>
+
+<h2 id="clone-bare-repository-into-another-instance">Clone bare repository into another instance</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% git <span class="nb">rm</span> <span class="nt">--cached</span> &lt;file&gt;
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="nt">--bare</span> git@github.com:alejogtz/configs.git ~/.cfg
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias conf='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+</code></pre></div></div>
+
+<p>conf checkout</p>
+
+<p>conf config –local status.showUntrackedFiles no</p>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/alejogtz" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/alejogtz" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/gzalejo" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/myblog/about">My Work</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/resume">Resume</a>
+          </li>
+          
+          <li>
+            <a href="/myblog/about/me">Me</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2024</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/myblog/assets/js/darkmode.js"></script>
+  
+</body>
+
+</html>
