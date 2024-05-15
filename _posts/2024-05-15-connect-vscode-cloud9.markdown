@@ -22,7 +22,7 @@ categories: Tutorials
 
 - **Install recommendes addons**
 
-![Imagen](https://imgur.com/a/aZrwKDn)
+![Imagen](https://i.imgur.com/TgVd7XZ.png)
 
 - **Generate ssh key-pair**
 
@@ -70,7 +70,11 @@ it should look seems like this
 
 - **Edit `~\.ssh\config`**
 
-![](https://imgur.com/a/aZrwKDn)
+![](https://i.imgur.com/l75lBco.png)
+
+![](https://i.imgur.com/hLSe32v.png)
+
+![](https://i.imgur.com/HgJJjy6.png)
 
 
 - Add new entry for remote host following next template
@@ -91,6 +95,21 @@ Host KudosApp
     IdentityFile ~/.ssh/id_rsa
 ```
 
-- Finally, connect vscode directly with your remote instance as following vídeo
+- **Finally, connect vscode directly with your remote instance**
 
-![](assets/video/vscode.mp4)
+Refresh list
+
+![](https://i.imgur.com/R70Cezi.png)
+
+![](https://i.imgur.com/Jzpo79x.png)
+
+![](https://i.imgur.com/Zj4INHT.png)
+
+![](https://i.imgur.com/C7ZqoUH.png)
+
+![](https://i.imgur.com/28lZOt9.png)
+
+![](https://i.imgur.com/qky7vu3.png)
+
+
+
